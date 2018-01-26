@@ -741,7 +741,7 @@ class ProcessManager
 
             $currentFileMTime = filemtime($filePath);
 
-            if (isset($this->filesLastMTime[$filePath])) {
+            if (!$reload && isset($this->filesLastMTime[$filePath])) {
                 if ($this->filesLastMTime[$filePath] !== $currentFileMTime) {
                     $this->filesLastMTime[$filePath] = $currentFileMTime;
 
@@ -754,7 +754,6 @@ class ProcessManager
                         //move this file to the beginning of the array, so next check is way faster.
                         unset($this->filesToTrack[$idx]);
                         array_unshift($this->filesToTrack, $filePath);
-                        break;
                     }
                 }
             } else {
